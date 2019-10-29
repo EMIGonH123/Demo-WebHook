@@ -1,0 +1,24 @@
+//Ejemplo de servidor WebHook con nodejs
+
+1.- Instalamos nodejs y npm:
+    sudo apt-get purge --auto-remove nodejs -> Borramos nodejs
+    sudo apt-get update -> Actualizamos los paquetes del repo
+    sudo apt-get install nodejs -> Instalamos nodejs
+
+2.- Creamos carpeta y proyecto:
+    mkdir ejemplo
+    cd ejemplo
+    npm init --yes
+    npm install express morgan nodemon jade @babel-node @bebel/core
+
+3.- Creamos las rutas POST y GET
+
+4.- Corremos el servidor y hacemos tesitng con:
+    npm run dev
+    curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
+    curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
+
+5.- Subimos la app a un servidor de aplicaciones (Heroku):
+    creamos cuenta gratuita;
+    descargamos heroku en nuestro sistema; npm install -g heroku
+    checamos la version; heroku --version
