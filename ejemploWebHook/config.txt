@@ -18,7 +18,17 @@
     curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
     curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
 
+5.- Creamos un repo en github para alojar nuestro servidor de webhook
+    git init
+    git add . 
+    git commint -m ""
+    git push ori...
+
 5.- Subimos la app a un servidor de aplicaciones (Heroku):
     creamos cuenta gratuita;
     descargamos heroku en nuestro sistema; npm install -g heroku
     checamos la version; heroku --version
+    iniciamos sesion en heroku; heroku login
+    creamos la app en heroku; heroku create
+    subimos la app; git push heroku master
+    
