@@ -1,4 +1,4 @@
-//Ejemplo de servidor WebHook con nodejs
+//Ejemplo de servidor WebHook con nodejs y hosteado en heroku
 
 1.- Instalamos nodejs y npm:
     sudo apt-get purge --auto-remove nodejs -> Borramos nodejs
@@ -18,17 +18,44 @@
     curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
     curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
 
+(Nuestra app debe tener el comando "start" en el package.json porque a la hora de desplegarlo
+en heroku, lo hace con npm run start y busca ese comando)
 5.- Creamos un repo en github para alojar nuestro servidor de webhook
     git init
     git add . 
     git commint -m ""
-    git push ori...
+    heroku git:remote -a "nombre de la app en heroku"
 
-5.- Subimos la app a un servidor de aplicaciones (Heroku):
+6.- Subimos la app a un servidor de aplicaciones (Heroku):
     creamos cuenta gratuita;
     descargamos heroku en nuestro sistema; npm install -g heroku
     checamos la version; heroku --version
     iniciamos sesion en heroku; heroku login
     creamos la app en heroku; heroku create
     subimos la app; git push heroku master
-    
+    iniciamos la app en heroku; heroku open
+    ver el log que te manda heroku; heroku logs --tail
+
+7.- Testeamos el servidor que ya hosteamos en heroku 
+    (cambiamos el localhost:1337 por el host de heroku):
+    curl -X GET "https://webhook-demo-chatbot1.herokuapp.com/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
+    curl -H "Content-Type: application/json" -X POST "https://webhook-demo-chatbot1.herokuapp.com/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
+
+
+//Configuracion de la aplicacion de Facebook
+1.- Página de Facebook: se utilizará una página de Facebook como la identidad del bot. Cuando las personas chateen con tu aplicación, verán la foto del perfil y el nombre de la página. Para crear una nueva página, visita https://www.facebook.com/pages/create.
+
+2.- Cuenta de desarrollador de Facebook: es obligatorio que tengas una cuenta de desarrollador para crear nuevas aplicaciones, que son el elemento fundamental de cualquier integración con Facebook. Accede a Facebook Developers y haz clic en el botón “Empezar” para crear una nueva cuenta de desarrollador.
+
+3.- Aplicación de Facebook: la aplicación de Facebook incluye la configuración de tu bot de Messenger, incluidos los identificadores de acceso. Para crear una nueva aplicación, visita el panel de aplicaciones.
+
+4.- URL del webhook: las acciones que se realizan en las conversaciones con tu bot, como los nuevos mensajes, se envían como eventos a tu webhook. Consulta Configurar un webhook para obtener más información sobre cómo configurarlo.
+
+//Codigos  y claves de la app que se creo en Facebook developvers
+Vamos a obtener el identificador y la clave secreta de la aplicación:
+    1.- Identificador de la aplicación: 526008974920152
+    2.- Clave secreta de la aplicación: e533a4ba89e9c714b8e67cbab26b02a8
+
+1.-EAAHeZAwIZASdgBAFzMg0nXXGYNoZAv0PaHu3EJyUSaB3ysa2nZARfC50TlkMhePSmo1H3C8ZAZAZCiShMabDZCMHufRzzPapXJYhcN6F6lmlO4VIV4LZCe7fJuHpeZCZCK3BKDx0lcGOnCZBsQQ1H0uTaZBXTZAXEMTTW30q4kI2bjlZCWE1QTi0IUgSk6cHgw073N1pigZD
+
+2.- EAAHeZAwIZASdgBAHwhSfquvwsYXqIlbpZAOzDdZCkkbkBmZC9VrZBcbYgrqZByFN1s3CnBTmxNsIlNqIAzPu1CZA8XkcNFoyQGuDsZBZBHK9IQ40nxETeQ8VhuWZCmPFPSD1pbwSK0PpgGZCvwOCpCR4qT7wagb1Kp19YVFrf1u1ZByqvEeN2JwiZAO5E3kwhe1vzoZArAZD
