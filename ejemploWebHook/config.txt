@@ -15,7 +15,7 @@
 
 4.- Corremos el servidor y hacemos tesitng con:
     npm run dev
-    curl -X GET "localhost:1337/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
+    curl -X GET "localhost:1337/webhook?hub.verify_token=emiliano123&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
     curl -H "Content-Type: application/json" -X POST "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
 
 (Nuestra app debe tener el comando "start" en el package.json porque a la hora de desplegarlo
@@ -38,8 +38,8 @@ en heroku, lo hace con npm run start y busca ese comando)
 
 7.- Testeamos el servidor que ya hosteamos en heroku 
     (cambiamos el localhost:1337 por el host de heroku):
-    curl -X GET "https://webhook-demo-chatbot1.herokuapp.com/webhook?hub.verify_token=<YOUR_VERIFY_TOKEN>&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
-    curl -H "Content-Type: application/json" -X POST "https://webhook-demo-chatbot1.herokuapp.com/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
+    curl -X GET "https://webhook-demo-bot1.herokuapp.com/webhook?hub.verify_token=emiliano123&hub.challenge=CHALLENGE_ACCEPTED&hub.mode=subscribe"
+    curl -H "Content-Type: application/json" -X POST "https://webhook-demo-bot1.herokuapp.com/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
 
 
 //Configuracion de la aplicacion de Facebook
@@ -56,8 +56,6 @@ Vamos a obtener el identificador y la clave secreta de la aplicación:
     1.- Identificador de la aplicación: 526008974920152
     2.- Clave secreta de la aplicación: e533a4ba89e9c714b8e67cbab26b02a8
 
-1.-EAAHeZAwIZASdgBAFzMg0nXXGYNoZAv0PaHu3EJyUSaB3ysa2nZARfC50TlkMhePSmo1H3C8ZAZAZCiShMabDZCMHufRzzPapXJYhcN6F6lmlO4VIV4LZCe7fJuHpeZCZCK3BKDx0lcGOnCZBsQQ1H0uTaZBXTZAXEMTTW30q4kI2bjlZCWE1QTi0IUgSk6cHgw073N1pigZD
+Token del identificador generado del webhook de messenger:
+1.- EAAHeZAwIZASdgBAMkFEeA1ZCP7Lrii2ZA2Hrlnj3AmvqIJTrCir6X8uffrcUkiLjbrc2WN7smiMFu8ZBVEtNDnJXjxzdZBVYR113cTqWhgdmyybm1ZBJOMojaUydU5HAfeDG9KZAwT7TDfVdyBz4PleZBnUtBgAC7iVmVIFO7C7Veg75vSy4N0pVT
 
-2.- EAAHeZAwIZASdgBAHwhSfquvwsYXqIlbpZAOzDdZCkkbkBmZC9VrZBcbYgrqZByFN1s3CnBTmxNsIlNqIAzPu1CZA8XkcNFoyQGuDsZBZBHK9IQ40nxETeQ8VhuWZCmPFPSD1pbwSK0PpgGZCvwOCpCR4qT7wagb1Kp19YVFrf1u1ZByqvEeN2JwiZAO5E3kwhe1vzoZArAZD
-
-3.- EAAHeZAwIZASdgBAONM1JZBsnbicTMgl3I0Id7cWiyZCgnZBlaFFNtFkhN9vTlG4s2SFoLzhSCXxKUPxTS6tbN1LZCRMD2Ta6o3Vc2tN1AyIZC3m4m08yVYlZBICV8v3cB3jI3UNC9f4IVpZAJOgftukHFEbanZAP1Dfngvu9UOmrR4dL7PsPuxXLZBl6i7XS5Wh6gsZD
