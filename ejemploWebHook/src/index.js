@@ -5,7 +5,8 @@ const request = require('request');
 const app = express();
 //const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
-const PAGE_ACCESS_TOKEN= "EAAHeZAwIZASdgBACnwL9zpAu6wUMbsHPNprFGCZAnHsRySqdKXBdFyLfnWzQefZCaV4fNKZCHlWZBEdfurDJ7ug1jDuBy28XZCdY2AqTn7v8MXtvDxbGLKOt4qrTMOkzxHTv06fYkwJgeGqlVsYAm9pT7qyZCk9Q3zb8oHYuPVJXHhuqXZAvngJVo";
+const PAGE_ACCESS_TOKEN= "EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT";
+
 console.log("---> PAGE_ACCESS_TOKEN: "+PAGE_ACCESS_TOKEN);
 app.set("port", process.env.PORT || 1337);
 app.set("view engine", "jade");

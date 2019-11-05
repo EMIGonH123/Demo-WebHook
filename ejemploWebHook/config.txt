@@ -59,3 +59,24 @@ Vamos a obtener el identificador y la clave secreta de la aplicación:
 Token del identificador generado del webhook de messenger:
 1.- EAAHeZAwIZASdgBAMkFEeA1ZCP7Lrii2ZA2Hrlnj3AmvqIJTrCir6X8uffrcUkiLjbrc2WN7smiMFu8ZBVEtNDnJXjxzdZBVYR113cTqWhgdmyybm1ZBJOMojaUydU5HAfeDG9KZAwT7TDfVdyBz4PleZBnUtBgAC7iVmVIFO7C7Veg75vSy4N0pVT
 
+//Cuenta de Facebook
+email: emighino123@gmail.com
+pass: iscmecatronica1997#
+
+//Cuenta de marketeer
+Link: https://my.marketeer.co
+Name: Webhook
+Email: emighino123@gmail.com
+Pass: toga1234
+
+//Admin interno de marketeer
+https://my.marketeer.co/admin_interno
+u: admin_marketeer
+p: 9dm3n_m1rk2t22r
+
+//Valores de configuracion de la Appwebhook
+PAGE_ID=106296830810808
+APP_ID=526008974920152
+PAGE_ACCESS_TOKEN="EAAHeZAwIZASdgBACnwL9zpAu6wUMbsHPNprFGCZAnHsRySqdKXBdFyLfnWzQefZCaV4fNKZCHlWZBEdfurDJ7ug1jDuBy28XZCdY2AqTn7v8MXtvDxbGLKOt4qrTMOkzxHTv06fYkwJgeGqlVsYAm9pT7qyZCk9Q3zb8oHYuPVJXHhuqXZAvngJVo"
+APP_SECRET=e533a4ba89e9c714b8e67cbab26b02a8
+Identificador de acceso: EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT
