@@ -80,3 +80,29 @@ APP_ID=526008974920152
 PAGE_ACCESS_TOKEN="EAAHeZAwIZASdgBACnwL9zpAu6wUMbsHPNprFGCZAnHsRySqdKXBdFyLfnWzQefZCaV4fNKZCHlWZBEdfurDJ7ug1jDuBy28XZCdY2AqTn7v8MXtvDxbGLKOt4qrTMOkzxHTv06fYkwJgeGqlVsYAm9pT7qyZCk9Q3zb8oHYuPVJXHhuqXZAvngJVo"
 APP_SECRET=e533a4ba89e9c714b8e67cbab26b02a8
 Identificador de acceso: EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT
+
+//Interaccion con heroku
+
+---> Instalacion de  heroku CLI por medio de NPM (Hay mas alternativas)
+    npm install -g heroku (https://devcenter.heroku.com/articles/heroku-cli)
+
+---> checamos la version 
+    heroku --version (En la terminal)
+
+---> Nos logeamos a heroku con nuestras credenciales de la cuenta que creamos
+    heroku login (En la terminal)
+
+---> Clonamos el repositorio de heroku en nuestra pc local
+    heroku git:clone -a webhook-demo-bot1
+    cd webhook-demo-bot1/ (/home/emighino/Documentos/Emiliano/Marketeer/BotFB/Demo-WebHook/ejemploWebHook)
+
+---> Acemos el push al repo para desplegar la app (webhook) en heroku
+    git add .
+    git commit -am "make it better"
+    git push heroku master
+
+---> Abrimos el proyecto
+    heroku open (En la terminal, abre una persaña en el navegador)
+
+---> Vemos los Logs de la app
+    heroku logs --tail
