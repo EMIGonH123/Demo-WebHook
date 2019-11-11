@@ -96,6 +96,16 @@ Identificador de acceso: EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBd
     heroku git:clone -a webhook-demo-bot1
     cd webhook-demo-bot1/ (/home/emighino/Documentos/Emiliano/Marketeer/BotFB/Demo-WebHook/ejemploWebHook)
 
+---> Definimos las variables de entorno para nuestro proyecto en Heroku
+    heroku config:set APP_ID=526008974920152 -a webhook-demo-bot1
+    heroku config:set APP_SECRET=e533a4ba89e9c714b8e67cbab26b02a8 -a webhook-demo-bot1
+    heroku config:set APP_URL=https://webhook-demo-bot1.herokuapp.com/ -a webhook-demo-bot1
+    heroku config:set PAGE_ID=106296830810808 -a webhook-demo-bot1
+    heroku config:set PAGE_ACCESS_TOKEN=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT -a webhook-demo-bot1
+    heroku config:set VERIFY_TOKEN=emiliano123 -a webhook-demo-bot1
+    heroku config:set SHOP_URL=https://webhook-demo-bot1.herokuapp.com/ -a webhook-demo-bot1
+    heroku config:set PERSON_ID=1424935877661714 -a webhook-demo-bot1
+
 ---> Acemos el push al repo para desplegar la app (webhook) en heroku
     git add .
     git commit -am "make it better"
@@ -106,3 +116,26 @@ Identificador de acceso: EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBd
 
 ---> Vemos los Logs de la app
     heroku logs --tail
+
+//Codigo de las peticiones al bot de marketeer
+function getRespuesta(){
+    async (question, usu = ' 0x1d3592714', room = '974deac3-175d-9f6f-87db-ff357cb199fd-d0e1f', lang = 'es', repeat = 'true') => {
+    let default_responses = {
+        404: {
+            es: "No hay sugerencias del bot",
+            en: "There's no bot suggestions",
+        }
+    };
+ 
+    const bot_api = encodeURI(`https://my.marketeer.co/controlador_marketeer/pregunta/?codigo=${room}&datos=${question}&lang=${lang}&usu=${usu}&repetir=${repeat}`);
+       
+    //console.log("Asking marketeer... ");
+    const request = await fetch(bot_api);
+    const bot_reply = await request.json();
+    //console.log(bot_reply);
+    if (bot_reply.faqs.length > 0) {
+        return bot_reply.faqs;
+    } else {
+        return [{ respuesta: default_responses[404][lang] }];
+    }
+}

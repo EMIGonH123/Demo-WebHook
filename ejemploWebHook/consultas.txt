@@ -1,0 +1,671 @@
+
+sender PSID: 2610041832368505
+recipient: 106296830810808
+
+//Plantilla generica (FUnciona)
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements":[
+           {
+            "title":"itio web",
+            "image_url":"https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",
+            "subtitle":"",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://www.facebook.com/appwebhook/",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://www.facebook.com/"
+            },
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://www.togasoluciones.com/",
+                "title":"TOGA"
+              },{
+                "type":"postback",
+                "title":"Start Chatting",
+                "payload":"DEVELOPER_DEFINED_PAYLOAD"
+              }              
+            ]      
+          }
+        ]
+      }
+    }
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+//Plantilla de listas
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  }, 
+  "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "list",
+        "top_element_style": "compact",
+        "elements": [
+          {
+            "title": "Classic T-Shirt Collection",
+            "subtitle": "See all our colors",
+            "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
+            "buttons": [
+              {
+                "title": "View",
+                "type": "web_url",
+                "url": "https://peterssendreceiveapp.ngrok.io/collection",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+              }
+            ]
+          },
+          {
+            "title": "Classic White T-Shirt",
+            "subtitle": "See all our colors",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+              "messenger_extensions": false,
+              "webview_height_ratio": "tall"
+            }
+          },
+          {
+            "title": "Classic Blue T-Shirt",
+            "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+            "subtitle": "100% Cotton, 200% Comfortable",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+            },
+            "buttons": [
+              {
+                "title": "Shop Now",
+                "type": "web_url",
+                "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+              }
+            ]        
+          }
+        ],
+         "buttons": [
+          {
+            "title": "View More",
+            "type": "postback",
+            "payload": "payload"            
+          }
+        ]  
+      }
+    }
+  }
+}' "https://graph.facebook.com/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+//Plantilla de botones(SI funciona )
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"What do you want to do next?",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://www.messenger.com",
+            "title":"Visit Messenger"
+          }
+        ]
+      }
+    }
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+//Lista de prendas (Si funciona)
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"receipt",
+        "recipient_name":"Stephane Crozatier",
+        "order_number":"12345678902",
+        "currency":"USD",
+        "payment_method":"Visa 2345",        
+        "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
+        "timestamp":"1428444852",         
+        "address":{
+          "street_1":"1 Hacker Way",
+          "street_2":"",
+          "city":"Menlo Park",
+          "postal_code":"94025",
+          "state":"CA",
+          "country":"US"
+        },
+        "summary":{
+          "subtotal":75.00,
+          "shipping_cost":4.95,
+          "total_tax":6.19,
+          "total_cost":56.14
+        },
+        "adjustments":[
+          {
+            "name":"New Customer Discount",
+            "amount":20
+          },
+          {
+            "name":"$10 Off Coupon",
+            "amount":10
+          }
+        ],
+        "elements":[
+          {
+            "title":"Classic White T-Shirt",
+            "subtitle":"100% Soft and Luxurious Cotton",
+            "quantity":2,
+            "price":50,
+            "currency":"USD",
+            "image_url":"http://petersapparel.parseapp.com/img/whiteshirt.png"
+          },
+          {
+            "title":"Classic Gray T-Shirt",
+            "subtitle":"100% Soft and Luxurious Cotton",
+            "quantity":1,
+            "price":25,
+            "currency":"USD",
+            "image_url":"http://petersapparel.parseapp.com/img/grayshirt.png"
+          }
+        ]
+      }
+    }
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+//Color verde  y rojo (Si funciona)
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Pick a color:",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"Rojo",
+        "image_url":"http://example.com/img/red.png"
+      },{
+        "content_type":"text",
+        "title":"Green",
+        "payload":"Verde",
+        "image_url":"http://example.com/img/green.png"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+
+//Telefono (Si funciona)
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Llamar al numero telefonico",
+    "quick_replies":[
+      {
+        "content_type":"user_phone_number"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+
+//Plantilla de open graph template
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"open_graph",
+        "elements":[
+           {
+            "url":"https://open.spotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://en.wikipedia.org/wiki/Rickrolling",
+                "title":"View More"
+              }              
+            ]      
+          }
+        ]
+      }
+    }
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+
+//Creando a una persona 
+curl -X POST -H "Content-Type: application/json" -d '{
+	"name": "Mavermate Adriana",
+	"profile_picture_url": "https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",
+}' "https://graph.facebook.com/me/personas?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+//Identificador del usuario
+---> Respuesta: {"id":"2393371747442114"}
+---> Respuesta: {"id":"1424935877661714"} maverick
+
+
+//Mandamos un mensaje por medio del usuario
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+      "id":"2610041832368505"
+   },
+  "message":{
+      "text":"Hola, soy emiliano!!",
+   },
+  "persona_id": "2393371747442114"
+ }' "https://graph.facebook.com/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+//Dando de alta el whitelisted_domains
+curl -X POST -H "Content-Type: application/json" -d '{
+  "whitelisted_domains": [
+    "https://www.facebook.com/",
+    "https://www.togasoluciones.com/",
+    "https://webhook-demo-bot1.herokuapp.com/",
+    "https://graph.facebook.com/",
+    "https://www.facebook.com/appwebhook/"
+   ]
+}' "https://graph.facebook.com/v5.0/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+//Probando los whitelisted_domains
+curl -X GET "https://graph.facebook.com/v5.0/me/messenger_profile?fields=whitelisted_domains,greeting&access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+//Respuestas rapidas de la ubucacion
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Pick a color:",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"Rojo",
+        "image_url":"http://example.com/img/red.png"
+      },{
+        "content_type":"text",
+        "title":"Green",
+        "payload":"Verde",
+        "image_url":"http://example.com/img/green.png"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+
+//Envio de respuesta rapida al usuario telefono
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Llamada telefonica",
+    "quick_replies":[
+      {
+        "content_type":"user_phone_number",
+        "payload":"Llamando",
+        "image_url":"http://example.com/img/green.png"
+      },
+      {
+        "content_type":"user_phone_number",
+        "payload":"",
+        "image_url":"http://example.com/img/red.png"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+//Envio de respuesta rapida del email
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Usted puede ponerse en contacto al siguiente email: ",
+    "quick_replies":[
+      {
+        "content_type":"user_email",
+        "payload":"metalica.el.01@gmail.com"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+
+//Agarra el numero de telefono
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2419837618124620"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Usted puede ponerse en contacto al siguiente telefono: ",
+    "quick_replies":[
+      {
+        "content_type":"user_phone_number"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+      "id":"2610041832368505"
+   },
+  "message":{
+      "text":"Hola, soy emiliano!!",
+   },
+  "persona_id": "2393371747442114"
+ }' "https://graph.facebook.com/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+/**********************
+* Botones den facebook
+***********************/
+
+//Plantilla generica del uso de los botones
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"Plantilla generica de los Botones",
+        "buttons":[  
+          { 
+            "type":"web_url",
+            "url":"https://www.togasoluciones.com/",
+            "title":"TOGA"
+          },        
+          {
+            "type":"postback",
+            "title":"Info de los servicios",
+            "payload": "Servicios"
+          },{
+            "type":"phone_number",
+            "title":"Llamar a Emi",
+            "payload":"+7226551322"
+          }
+        ]
+      }
+    }
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+
+
+---> Boton de URL (FUnciona)
+El botón de URL es compatible con los siguientes elementos:
+  menú continuo,
+  plantilla genérica,
+  plantilla de lista,
+  plantilla de botones,
+  plantilla de contenido multimedia,
+  plantilla de Open Graph. 
+
+  Formato:
+  "buttons":[
+    {
+      "type":"web_url",
+      "url":"https://www.togasoluciones.com/",
+      "title":"TOGA"
+    }
+  ]
+
+---> Botón de postback (FUnciona 1/2)
+El botón de postback envía un evento messaging_postbacks 
+a tu webhook con la cadena definida en la propiedad payload. 
+Esto te permite realizar una acción arbitraria cuando se 
+toque el botón. 
+  Formato:
+    "buttons":[
+      {
+        "type":"postback",
+        "title":"Servicios"
+      }
+    ]
+
+---> Boton compartir (Depresiado)
+Este botón permite al destinatario compartir con otras 
+personas en Messenger el contenido de un mensaje que hayas enviado. 
+El nombre y el icono de tu página aparecen como atribución en 
+la parte superior del contenido compartido. Cuando se toca 
+dicha atribución, se abre una conversación con tu bot.
+  Formato:
+  {
+    "type": "element_share",
+    "share_contents": { 
+      "attachment": {
+        "type": "template",
+        "payload": {
+          <GENERIC_TEMPLATE_OBJECT>
+        }
+      }
+    }
+  }
+
+  curl -X POST -H "Content-Type: application/json" -d '{
+    "recipient":{
+      "id":"2610041832368505"
+    },
+    "message":{
+      "attachment":{
+        "type":"template",
+        "payload":{
+          "template_type":"generic",
+          "elements":[
+            {
+              "title":"Breaking News: Record Thunderstorms",
+              "subtitle":"The local area is due for record thunderstorms over the weekend.",
+              "image_url":"https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",
+              "buttons": [
+                {
+                  "type": "element_share",
+                  "share_contents": { 
+                    "attachment": {
+                      "type": "template",
+                      "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                          {
+                            "title": "I took the hat quiz",
+                            "subtitle": "My result: Fez",
+                            "image_url": "https://bot.peters-hats.com/img/hats/fez.jpg",
+                            "default_action": {
+                              "type": "web_url",
+                              "url": "http://m.me/petershats?ref=invited_by_24601"
+                            },
+                            "buttons": [
+                              {
+                                "type": "web_url",
+                                "url": "http://m.me/petershats?ref=invited_by_24601", 
+                                "title": "Take Quiz"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }' "https://graph.facebook.com/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+---> Boton de llamada (Funciona)
+Cuando se toca, el botón “Llamar” marca un número de teléfono. 
+Este número debe seguir el formato: 
+  +<COUNTRY_CODE><PHONE_NUMBER> (por ejemplo, +15105559999).
+
+El botón “Llamar” es compatible con los siguientes elementos:
+  plantilla genérica,
+  plantilla de lista,
+  plantilla de botones,
+  plantilla de contenido multimedia. 
+
+Formato:
+  {
+    "type":"phone_number",
+    "title":"Llamar a Emi",
+    "payload":"+527226551322"
+  }
+
+---> Boton de comprar (Solo para usuarios de EEUU)
+El botón “Comprar” inicia el proceso de pagos en la conversación. 
+Al tocar este botón, se abre un cuadro de diálogo de pago que
+permite al destinatario del mensaje elegir el método de pago, 
+la dirección de envío y otros datos. 
+El botón “Comprar” es compatible con los siguientes elementos:
+  plantilla genérica,
+  plantilla de lista,
+  plantilla de contenido multimedia. 
+
+/*****************/
+* Menu continuo
+******************/
+Con el menú continuo puedes tener un elemento de la 
+interfaz de usuario siempre activo en las conversaciones de Messenger. 
+Se trata de una forma sencilla para que las personas descubran 
+la función principal de tu bot de Messenger y acceder a 
+ella en cualquier punto de la conversación.
+
+Requisitos para que funcione el menu continuo:
+  La persona debe usar la versión 106 o posterior de Messenger en iOS o Android.
+  La página de Facebook a la que está suscrito el bot de Messenger debe estar publicada.
+  El bot de Messenger debe estar configurado como público en la configuración de la aplicación.
+  El bot de Messenger debe tener el permiso pages_messaging.
+  El bot de Messenger debe tener configurado un botón “Empezar”. 
+
+Botones compatibles:
+  web_url: especifica que el elemento es un botón de URL.
+  postback: especifica que el elemento es un botón de postback.
+  nested: especifica que el elemento es un menú anidado.
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "persistent_menu":[
+    {
+      "locale":"default",
+      "composer_input_disabled": false,
+      "call_to_actions":[
+        {
+          "title":"Menu de opciones",
+          "type":"nested",
+          "call_to_actions":[
+            {
+              "title":"Servicios",
+              "type":"postback",
+              "payload":"servicios"
+            },
+            {
+              "type":"web_url",
+              "title":"Web de TOGA",
+              "url":"https://www.togasoluciones.com/",
+              "webview_height_ratio":"full"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+/**************************/
+* Pantalla de bienvenida
+***************************/
+---> Configurar el postback del botón “Empezar”
+curl -X POST -H "Content-Type: application/json" -d '{
+  "get_started": {"payload": "Hola"}
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+---> Configurar el texto de saludo
+El texto de saludo de la pantalla de bienvenida supone 
+una primera oportunidad para informar a la persona de por 
+qué debería iniciar una conversación con tu bot de Messenger.
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "greeting": [
+    {
+      "locale":"default",
+      "text":"Hola {{user_first_name}} bienvenido a Maverick. Esta pagina esta encargada de arketing" 
+    }, {
+      "locale":"en_US",
+      "text":"Timeless apparel for the masses."
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+---> Actualizar info
+curl -X POST -H "Content-Type: application/json" -d '{
+  "get_started": {"payload": "Hola"}
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+---> Eliminar
+curl -X DELETE -H "Content-Type: application/json" -d '{
+  "fields": [
+    "get_started",
+    "greeting"
+  ]
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+---> Obtener algun recurso
+curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=greeting,get_started]&access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
