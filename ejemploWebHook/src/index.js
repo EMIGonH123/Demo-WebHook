@@ -5,7 +5,7 @@ const path = require("path");
 const fetch = require('node-fetch');
 
 const {
-  getTemplateBtnsWhitImg, 
+  getTemplateBtnsWhitImg,
   getTemplateBtnsWhitoutImg
 } = require("./services/templates");
 
@@ -37,7 +37,7 @@ app.use(express.static(path.join(path.resolve(), "public")));
 app.use(morgan("dev"));
 app.use(express.json());
 
-// Quitamos el texto HTML
+// Funcion para quitar el HTML
 function limpiarCadena(cadena) {
   let er = new RegExp("\\<.*?>");
   let er2 = new RegExp("\\s\\s+");
@@ -50,118 +50,7 @@ function limpiarCadena(cadena) {
   return cadena;
 }
 
-//Funciones para el formato de plantillas de facebook
-function agregarBoton1(cadenaLimpia, btn1) {
-  return {
-    "text": `${cadenaLimpia}`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": `${btn1}`
-      }
-    ]
-  }
-}
-
-/*****************************
- * Funciones de configuracion 
- *****************************/
-function createMessage(payload, data) {
-  // Mensaje de bienvenida que se ve en el BOT de Messenger
-  let text = `Hola {{user_first_name}} bienvenido a ${data.company}.\n${data.info}`;
-
-  // Es el postback que se va a mandar cuando 
-  // se presione "Empezar"
-  let request_body = {
-    "get_started": {
-      "payload": `${payload}`
-    },
-    "greeting": [
-      {
-        "locale": "default",
-        "text": text
-      }, {
-        "locale": "en_US",
-        "text": "Timeless apparel for the masses."
-      }
-    ]
-  };
-
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('---> El mensaje de bienvenida se configuro exitosamente');
-      console.log(res);
-      return res;
-    } else {
-      console.error("---> El mensaje de bienvenida no se configuro bien:" + err);
-      return {
-        "error": `${err}`
-      };
-    }
-  });
-}
-
-function createPerson(name, url_img) {
-
-  let request_body = {
-    "name": `${name}`,
-    "profile_picture_url": `${url_img}`
-  };
-
-  request({
-    "uri": "https://graph.facebook.com/me/personas",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('---> La persona fue creada exitosamente');
-      console.log(res);
-      return res;
-    } else {
-      console.error("---> La persona no se pudo crear:" + err);
-      return {
-        "error": `${err}`
-      };
-    }
-  });
-}
-
-function getResource(fields) {
-  /**
-   * formato:
-   * fields = ["recurso1", ..., "recursoN"]
-   */
-  let request_body = {
-    "fields": fields
-  };
-
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "GET",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log("---> La solicitud de los recursos fue CORRECTA");
-      console.log(res);
-      return res;
-    } else {
-      console.error("---> La solicitud de los recursos fue INCORRECTA:" + err);
-      return {
-        "error": `${err}`
-      };
-    }
-  });
-}
-
-//Funciones para el desarrollo del BOT
-// Handles messages events
+// Funciones para el manejo de los mensajes
 async function handleMessage(sender_psid, received_message) {
   console.log("---> Entrando al handleMessage");
   let response, data, respuestaBot, cadenaLimpia;
@@ -174,16 +63,10 @@ async function handleMessage(sender_psid, received_message) {
     respuestaBot = data[0]["respuesta"];
     cadenaLimpia = limpiarCadena(respuestaBot);
     console.log("---> Cadena limpia: " + cadenaLimpia);
-    // response = {
-    //   "text": `${cadenaLimpia}`
-    // }
-    //response = agregarBoton2(cadenaLimpia, "Servicios", "Ubicacion");
     response = {
       "text": `${cadenaLimpia}`
     }
   } else if (received_message.attachments) {
-
-
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
 
@@ -213,13 +96,11 @@ async function handleMessage(sender_psid, received_message) {
       }
     }
   }
-
-  // Sends the response message
-  await callSendAPI(sender_psid, response);
-
-  console.log("---> Saliendo del handleMessage");
+  // Enviando la respuesta
+  callSendAPI(sender_psid, response);
 }
 
+// Funcion para
 async function getResponseByPayload(payload) {
   let data, respuestaBot, cadenaLimpia, btns = [];
   let default_action = {
@@ -246,37 +127,37 @@ async function getResponseByPayload(payload) {
   btns.push(getBtnPostback("Servicios", "Servicios"));
 
   let respuesta = getTemplateBtnsWhitImg(default_action, btns, "Sitio web TOGA", cadenaLimpia);
-  
+
   console.log("---> Botones:");
   console.log(btns);
-  
+
   console.log("---> JSON del template:");
   console.log(respuesta);
 
   console.log("---> JSON de los elementos del payload en el template:");
   console.log(respuesta.attachment.payload.elements);
-  
+
   return respuesta;
 }
 
-// Handles messaging_postbacks events
+// Manejador de eventos postback
 async function handlePostback(sender_psid, received_postback) {
   let response;
 
-  // Get the payload for the postback
+  // Obtenemos el payload del postback
   let payload = received_postback.payload;
 
   //Obtenemos la respuesta por medio del payload
   response = await getResponseByPayload(payload);
 
-  // Send the message to acknowledge the postback
-  await callSendAPI(sender_psid, response);
+  // Enviamos la respuesta
+  callSendAPI(sender_psid, response);
 }
 
-// Sends response messages via the Send API
+// Funcion en cargada de mandar la respuesta al usuario
 function callSendAPI(sender_psid, response) {
-  console.log("---> Entrando al callSendAPI");
-  // Construct the message body
+
+  // Definimos el JSON que se va a mandar
   let request_body = {
     "recipient": {
       "id": sender_psid
@@ -285,7 +166,7 @@ function callSendAPI(sender_psid, response) {
     "persona_id": PERSON_ID
   }
 
-  // Send the HTTP request to the Messenger Platform
+  // Enviar la peticion HTTP a la plataforma de Messenger
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
@@ -298,19 +179,17 @@ function callSendAPI(sender_psid, response) {
       console.error("---> No se pudo enviar el mensaje:" + err);
     }
   });
-  console.log("---> Saliendo del callSendAPI");
 }
 
-//Ruta de prueba para el Servidor
+// Ruta de prueba para el Servidor Local
 app.get("/", (req, res) => {
   res.send("Hola mundo con  NODEJS");
 });
 
-// Adds support for GET requests to our webhook
+// Ruta para las peticiones GET
 app.get('/webhook', (req, res) => {
 
-  // Your verify token. Should be a random string.
-  //let VERIFY_TOKEN = "<YOUR_VERIFY_TOKEN>";
+  // El token es un String random
   let VERIFY_TOKEN = "emiliano123";
 
   // Parse the query params
@@ -335,6 +214,7 @@ app.get('/webhook', (req, res) => {
   }
 });
 
+// Ruta para las peticiones POST
 app.post('/webhook', (req, res) => {
 
   let body = req.body;
@@ -375,6 +255,7 @@ app.post('/webhook', (req, res) => {
 
 });
 
+// Ponemos a correr el servidor
 app.listen(app.get("port"), () => {
   console.log("--------------------------");
   console.log("--- Ejemplo de WebHook ---");
