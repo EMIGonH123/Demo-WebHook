@@ -273,8 +273,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
   }
 }' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
-
-
 //Creando a una persona 
 curl -X POST -H "Content-Type: application/json" -d '{
 	"name": "Mavermate Adriana",
@@ -284,7 +282,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
 //Identificador del usuario
 ---> Respuesta: {"id":"2393371747442114"}
 ---> Respuesta: {"id":"1424935877661714"} maverick
-
 
 //Mandamos un mensaje por medio del usuario
 curl -X POST -H "Content-Type: application/json" -d '{
@@ -667,5 +664,12 @@ curl -X DELETE -H "Content-Type: application/json" -d '{
   ]
 }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
+
 ---> Obtener algun recurso
-curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=greeting,get_started]&access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=[profile_picture_url]&access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+curl -X GET -H "Content-Type: application/json" -d '{
+  "fields": [
+    "name"
+  ]
+}' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"

@@ -3,6 +3,22 @@ const morgan = require("morgan");
 const request = require('request');
 const path = require("path");
 const fetch = require('node-fetch');
+
+const {
+  getTemplateBtnsWhitImg, 
+  getTemplateBtnsWhitoutImg
+} = require("./services/templates");
+
+const {
+  getResponseFromBotMarketeer
+} = require("./services/marketeer");
+
+const {
+  getBtnPhone,
+  getBtnPostback,
+  getBtnURL
+} = require("./services/botones");
+
 const app = express();
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
@@ -44,45 +60,6 @@ function agregarBoton1(cadenaLimpia, btn1) {
         "title": `${btn1}`
       }
     ]
-  }
-}
-
-
-function paginaWeb(titulo, subtitulo, imagen_url, default_action_url, fallback_url) {
-  // https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg
-  // https://www.facebook.com/appwebhook/
-  return response = {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [
-          {
-            "title": `${titulo}`,
-            "image_url": `${imagen_url}`,
-            "subtitle": `${subtitulo}`,
-            "default_action": {
-              "type": "web_url",
-              "url": `${default_action_url}`,
-              "messenger_extensions": true,
-              "webview_height_ratio": "tall",
-              "fallback_url": `${fallback_url}`
-            },
-            "buttons": [
-              {
-                "type": "web_url",
-                "url": "https://www.togasoluciones.com/",
-                "title": "TOGA"
-              }, {
-                "type": "postback",
-                "title": "Start Chatting",
-                "payload": "DEVELOPER_DEFINED_PAYLOAD"
-              }
-            ]
-          }
-        ]
-      }
-    }
   }
 }
 
@@ -128,8 +105,6 @@ function createMessage(payload, data) {
     }
   });
 }
-
-
 
 function createPerson(name, url_img) {
 
@@ -185,179 +160,6 @@ function getResource(fields) {
   });
 }
 
-
-/************************
- * Funciones de Botones 
- ***********************/
-function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
-  return {
-    "type": "phone_number",
-    "title": titulo,
-    "payload": `+${country_code}${phone_number}`
-  }
-}
-
-function getBtnsPhone(...args) {
-  let arregloBtns = [];
-  args.forEach(btn => {
-    arregloBtns.push(getBtnPhone(btn.titulo, btn.country_code, btn.phone_number));
-  });
-  return arregloBtns;
-}
-
-function getBtnPostback(titulo = "¡Hola!", payload = "Hola") {
-  return {
-    "type": "postback",
-    "title": titulo,
-    "payload": payload
-  }
-}
-
-function getBtnsPostback(...args) {
-  let arregloBtns = [];
-  args.forEach(btn => {
-    arregloBtns.push(getBtnPostback(btn.titulo, btn.payload));
-  });
-  return arregloBtns;
-}
-
-function getBtnURL(url = "https://www.togasoluciones.com", titulo = "TOGA") {
-  return {
-    "type": "web_url",
-    "url": url,
-    "title": titulo
-  }
-}
-
-function getBtnsURL(...args) {
-  let arregloBtns = [];
-  args.forEach(btn => {
-    arregloBtns.push(getBtnURL(btn.url, btn.titulo));
-  });
-  return arregloBtns;
-}
-
-function getBtnsOnlyOneType(type, ...args) {
-  /**
-   *  El formato del arreglo args es:
-   *  args = [
-   *    {
-   *      "url" : "www.facebook.com",
-   *      "titulo" : "Btn URL"
-   *    },
-   *    {
-   *      "title": "Btn payload",
-   *       "payload": "Hola"
-   *    },
-   *    {
-   *       "title": "Btn phone",
-   *       "payload": `+${country_code}${phone_number}`
-   *    }
-   *  ] 
-   */
-  let btns;
-  switch (type) {
-    case "URL":
-      btns = getBtnsURL(args);
-      break;
-
-    case "POSTBACK":
-      btns = getBtnsPostback(args);
-      break;
-
-    case "PHONE_NUMBER":
-      btns = getBtnsPhone(args);
-      break;
-    default:
-      break;
-  }
-  return btns;
-}
-
-/*********************************
- * Funciones para las plantillas 
- *********************************/
-function getTemplateBtnsWhitoutImg(text, btns) {
-  return {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": `${text}`,
-        "buttons": btns
-      }
-    }
-  }
-}
-
-function getTemplateBtnsWhitImg(
-  titulo = "Titulo",
-  subtitle = "Subtitulo",
-  image_url = "https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",
-  default_action,
-  btns
-) {
-
-  return {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [
-          {
-            "title": `${titulo}`,
-            "image_url": `${image_url}`,
-            "subtitle": `${subtitle}`,
-            "default_action": {
-              "type": `${default_action.type}`,
-              "url": `${default_action.url}`,
-              "messenger_extensions": true,
-              "webview_height_ratio": "tall",
-              "fallback_url": `${default_action.fallback_url}`
-            },
-            "buttons": btns
-          }
-        ]
-      }
-    }
-  }
-}
-/**********************************************
- *  API que se conecta con el bot de Marketeer 
- **********************************************/
-async function obtenerRespuestaBotMarketeer(question) {
-  // const usu = ' 0x1d3592714'; //Appwebhook
-  const usu = '0x1d3a9e1d6'; //Maverik
-  //const usu = idusu;
-
-  const room = '974deac3-175d-9f6f-87db-ff357cb199fd-d0e1f';
-  const lang = 'es';
-  const repeat = 'true';
-
-  // En caso de que el bot de marketeer no sepa responder,
-  // se lanza una respuesta por defecto
-  let default_responses = {
-    404: {
-      es: "No hay sugerencias del bot",
-      en: "There's no bot suggestions",
-    }
-  };
-
-  const bot_api = encodeURI(`https://my.marketeer.co/controlador_marketeer/pregunta/?codigo=${room}&datos=${question}&lang=${lang}&usu=${usu}&repetir=${repeat}`);
-
-  const request = await fetch(bot_api);
-  const bot_reply = await request.json();
-
-  console.log("---> En el consumo de la API JSON (Crudos):\n");
-  console.log(bot_reply);
-
-  if (bot_reply.faqs.length > 0) {
-    return bot_reply.faqs;
-  } else {
-    return [{ respuesta: default_responses[404][lang] }];
-  }
-}
-
 //Funciones para el desarrollo del BOT
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {
@@ -368,7 +170,7 @@ async function handleMessage(sender_psid, received_message) {
   if (received_message.text) {
 
     //API del Bot
-    data = await obtenerRespuestaBotMarketeer(received_message.text);
+    data = await getResponseFromBotMarketeer(received_message.text);
     respuestaBot = data[0]["respuesta"];
     cadenaLimpia = limpiarCadena(respuestaBot);
     console.log("---> Cadena limpia: " + cadenaLimpia);
@@ -384,6 +186,7 @@ async function handleMessage(sender_psid, received_message) {
 
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
+
     response = {
       "attachment": {
         "type": "template",
@@ -420,18 +223,18 @@ async function handleMessage(sender_psid, received_message) {
 async function getResponseByPayload(payload) {
   let data, respuestaBot, cadenaLimpia, btns = [];
   let default_action = {
-    type:"web_url",
+    type: "web_url",
     url: "https://www.facebook.com/appwebhook/",
     fallback_url: "https://www.facebook.com/"
   };
 
   switch (payload) {
     case "Empezar":
-      data = await obtenerRespuestaBotMarketeer("Hola");
+      data = await getResponseFromBotMarketeer("Hola");
       break;
 
     default:
-      data = await obtenerRespuestaBotMarketeer(payload);
+      data = await getResponseFromBotMarketeer(payload);
       break;
   }
 
@@ -442,12 +245,18 @@ async function getResponseByPayload(payload) {
   btns.push(getBtnPhone("Llamar a TOGA", 52, 5514505050));
   btns.push(getBtnPostback("Servicios", "Servicios"));
 
+  let respuesta = getTemplateBtnsWhitImg(default_action, btns, "Sitio web TOGA", cadenaLimpia);
+  
+  console.log("---> Botones:");
+  console.log(btns);
+  
+  console.log("---> JSON del template:");
+  console.log(respuesta);
 
-  return getTemplateBtnsWhitImg(titulo = "TOGA", subtitulo = cadenaLimpia, default_action, btns);
-  //Regresamos el JSON del response que maneja el postback
-  // return {
-  //   "text": cadenaLimpia
-  // }
+  console.log("---> JSON de los elementos del payload en el template:");
+  console.log(respuesta.attachment.payload.elements);
+  
+  return respuesta;
 }
 
 // Handles messaging_postbacks events
@@ -491,7 +300,6 @@ function callSendAPI(sender_psid, response) {
   });
   console.log("---> Saliendo del callSendAPI");
 }
-
 
 //Ruta de prueba para el Servidor
 app.get("/", (req, res) => {
