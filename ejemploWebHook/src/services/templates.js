@@ -40,5 +40,13 @@ function getTemplateBtnsWhitImg(default_action, btns, titulo = "Titulo", subtitl
     }
 }
 
+function getTemplateQuickReplies(text, quick_replies) {
+    return {
+        "text": `${text}`,
+        "quick_replies": quick_replies
+    }
+}
+
 module.exports.getTemplateBtnsWhitImg = getTemplateBtnsWhitImg;
 module.exports.getTemplateBtnsWhitoutImg = getTemplateBtnsWhitoutImg;
+module.exports.getTemplateQuickReplies = getTemplateQuickReplies;

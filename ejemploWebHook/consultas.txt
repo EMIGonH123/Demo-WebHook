@@ -43,79 +43,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
 }' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
 
-//Plantilla de listas
-curl -X POST -H "Content-Type: application/json" -d '{
-  "recipient":{
-    "id":"2610041832368505"
-  }, 
-  "message": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "list",
-        "top_element_style": "compact",
-        "elements": [
-          {
-            "title": "Classic T-Shirt Collection",
-            "subtitle": "See all our colors",
-            "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",          
-            "buttons": [
-              {
-                "title": "View",
-                "type": "web_url",
-                "url": "https://peterssendreceiveapp.ngrok.io/collection",
-                "messenger_extensions": true,
-                "webview_height_ratio": "tall",
-                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-              }
-            ]
-          },
-          {
-            "title": "Classic White T-Shirt",
-            "subtitle": "See all our colors",
-            "default_action": {
-              "type": "web_url",
-              "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-              "messenger_extensions": false,
-              "webview_height_ratio": "tall"
-            }
-          },
-          {
-            "title": "Classic Blue T-Shirt",
-            "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
-            "subtitle": "100% Cotton, 200% Comfortable",
-            "default_action": {
-              "type": "web_url",
-              "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
-              "messenger_extensions": true,
-              "webview_height_ratio": "tall",
-              "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-            },
-            "buttons": [
-              {
-                "title": "Shop Now",
-                "type": "web_url",
-                "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-                "messenger_extensions": true,
-                "webview_height_ratio": "tall",
-                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
-              }
-            ]        
-          }
-        ],
-         "buttons": [
-          {
-            "title": "View More",
-            "type": "postback",
-            "payload": "payload"            
-          }
-        ]  
-      }
-    }
-  }
-}' "https://graph.facebook.com/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
-
-
 //Plantilla de botones(SI funciona )
 curl -X POST -H "Content-Type: application/json" -d '{
   "recipient":{
@@ -202,48 +129,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
     }
   }
 }' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
-
-
-//Color verde  y rojo (Si funciona)
-curl -X POST -H "Content-Type: application/json" -d '{
-  "recipient":{
-    "id":"2610041832368505"
-  },
-  "messaging_type": "RESPONSE",
-  "message":{
-    "text": "Pick a color:",
-    "quick_replies":[
-      {
-        "content_type":"text",
-        "title":"Red",
-        "payload":"Rojo",
-        "image_url":"http://example.com/img/red.png"
-      },{
-        "content_type":"text",
-        "title":"Green",
-        "payload":"Verde",
-        "image_url":"http://example.com/img/green.png"
-      }
-    ]
-  }
-}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
-
-
-//Telefono (Si funciona)
-curl -X POST -H "Content-Type: application/json" -d '{
-  "recipient":{
-    "id":"2610041832368505"
-  },
-  "messaging_type": "RESPONSE",
-  "message":{
-    "text": "Llamar al numero telefonico",
-    "quick_replies":[
-      {
-        "content_type":"user_phone_number"
-      }
-    ]
-  }
-}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
 
 
 //Plantilla de open graph template
@@ -673,3 +558,208 @@ curl -X GET -H "Content-Type: application/json" -d '{
     "name"
   ]
 }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+/*******************
+* Respuesta rapida
+********************/
+//Plantilla general
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Plantillas de respuesta rapida",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Servicios",
+        "payload":"Hola",
+        "image_url":"http://example.com/img/red.png"
+      },{
+        "content_type":"text",
+        "title":"Hola",
+        "payload":"Hola"
+      },{
+        "content_type":"user_phone_number",
+        "title":"+527226551322"
+      },{
+        "content_type":"user_email", 
+        "title" :"emi@gmail.com"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+
+/************************
+* Acciones de remitente
+*************************/
+//Damos de alta una accion
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "sender_action":"typing_on"
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+/************
+* Plantillas
+*************/
+---> Plantilla de lista (Depresiada)
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  }, 
+  "message": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "list",
+        "top_element_style": "compact",
+        "elements": [
+          {
+            "title": "Classic T-Shirt Collection",
+            "subtitle": "See all our colors",
+            "image_url": "https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",          
+            "buttons": [
+              {
+                "title": "View",
+                "type": "web_url",
+                "url": "https://www.togasoluciones.com",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://www.facebook.com"            
+              }
+            ]
+          },
+          {
+            "title": "Classic White T-Shirt",
+            "subtitle": "See all our colors",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://www.togasoluciones.com",
+              "messenger_extensions": false,
+              "webview_height_ratio": "tall"
+            }
+          },
+          {
+            "title": "Classic Blue T-Shirt",
+            "image_url": "https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",
+            "subtitle": "100% Cotton, 200% Comfortable",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://www.togasoluciones.com",
+              "messenger_extensions": true,
+              "webview_height_ratio": "tall",
+              "fallback_url": "https://www.facebook.com"
+            },
+            "buttons": [
+              {
+                "title": "Shop Now",
+                "type": "web_url",
+                "url": "https://www.togasoluciones.com",
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": "https://www.facebook.com"            
+              }
+            ]        
+          }
+        ],
+         "buttons": [
+          {
+            "title": "Servicios",
+            "type": "postback",
+            "payload": "Servicios"            
+          }
+        ]  
+      }
+    }
+  }
+}' "https://graph.facebook.com/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+---> Plantilla multimedia
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "message":{
+    "attachment": {
+      "type": "template",
+      "payload": {
+         "template_type": "media",
+         "elements": [
+            {
+               "media_type": "image",
+               "attachment_id": "<ATTACHMENT_ID>"
+            }
+         ]
+      }
+    }    
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+---> Plantilla de recibo
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "message":{
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"receipt",
+        "recipient_name":"Stephane Crozatier",
+        "order_number":"12345678902",
+        "currency":"USD",
+        "payment_method":"Visa 2345",        
+        "order_url":"https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",
+        "timestamp":"1428444852",         
+        "address":{
+          "street_1":"1 Hacker Way",
+          "street_2":"",
+          "city":"Menlo Park",
+          "postal_code":"94025",
+          "state":"CA",
+          "country":"US"
+        },
+        "summary":{
+          "subtotal":75.00,
+          "shipping_cost":4.95,
+          "total_tax":6.19,
+          "total_cost":56.14
+        },
+        "adjustments":[
+          {
+            "name":"New Customer Discount",
+            "amount":20
+          },
+          {
+            "name":"$10 Off Coupon",
+            "amount":10
+          }
+        ],
+        "elements":[
+          {
+            "title":"Classic White T-Shirt",
+            "subtitle":"100% Soft and Luxurious Cotton",
+            "quantity":2,
+            "price":50,
+            "currency":"USD",
+            "image_url":"https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg"
+          },
+          {
+            "title":"Classic Gray T-Shirt",
+            "subtitle":"100% Soft and Luxurious Cotton",
+            "quantity":1,
+            "price":25,
+            "currency":"USD",
+            "image_url":"https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg"
+          }
+        ]
+      }
+    }
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"

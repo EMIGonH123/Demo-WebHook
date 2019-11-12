@@ -9,7 +9,7 @@ function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
     }
 }
 
- function getBtnsPhone(...args) {
+function getBtnsPhone(...args) {
     let arregloBtns = [];
     args.forEach(btn => {
         arregloBtns.push(getBtnPhone(btn.titulo, btn.country_code, btn.phone_number));
@@ -17,7 +17,7 @@ function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
     return arregloBtns;
 }
 
- function getBtnPostback(titulo = "¡Hola!", payload = "Hola") {
+function getBtnPostback(titulo = "¡Hola!", payload = "Hola") {
     return {
         "type": "postback",
         "title": titulo,
@@ -25,7 +25,7 @@ function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
     }
 }
 
- function getBtnsPostback(...args) {
+function getBtnsPostback(...args) {
     let arregloBtns = [];
     args.forEach(btn => {
         arregloBtns.push(getBtnPostback(btn.titulo, btn.payload));
@@ -33,7 +33,7 @@ function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
     return arregloBtns;
 }
 
- function getBtnURL(url = "https://www.togasoluciones.com", titulo = "TOGA") {
+function getBtnURL(url = "https://www.togasoluciones.com", titulo = "TOGA") {
     return {
         "type": "web_url",
         "url": url,
@@ -41,7 +41,7 @@ function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
     }
 }
 
- function getBtnsURL(...args) {
+function getBtnsURL(...args) {
     let arregloBtns = [];
     args.forEach(btn => {
         arregloBtns.push(getBtnURL(btn.url, btn.titulo));
@@ -49,7 +49,7 @@ function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
     return arregloBtns;
 }
 
- function getBtnsOnlyOneType(type, ...args) {
+function getBtnsOnlyOneType(type, ...args) {
     /**
      *  El formato del arreglo args es:
      *  args = [
@@ -81,8 +81,8 @@ function getBtnPhone(titulo = "Llamar", country_code = "52", phone_number) {
             btns = getBtnsPhone(args);
             break;
         default:
-       
-        break;
+
+            break;
     }
     return btns;
 }
