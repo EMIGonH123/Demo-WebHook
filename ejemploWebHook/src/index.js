@@ -6,7 +6,8 @@ const fetch = require('node-fetch');
 
 const {
   getTemplateBtnsWhitImg,
-  getTemplateBtnsWhitoutImg
+  getTemplateBtnsWhitoutImg,
+  getTemplateQuickReplies
 } = require("./services/templates");
 
 const {
@@ -18,6 +19,11 @@ const {
   getBtnPostback,
   getBtnURL
 } = require("./services/botones");
+
+const {
+  getBtnQuickReplies
+} = require("./services/respuestasRapidas");
+
 
 const app = express();
 
@@ -53,19 +59,96 @@ function limpiarCadena(cadena) {
 // Funciones para el manejo de los mensajes
 async function handleMessage(sender_psid, received_message) {
   console.log("---> Entrando al handleMessage");
-  let response, data, respuestaBot, cadenaLimpia;
+  let response, data, respuestaBot, cadenaLimpia, btns = [], image_url;
+
+  //Boton para instagram
+  let default_action = {
+    type: "web_url",
+    url: "https://www.instagram.com/maverick_agency/",
+    fallback_url: "https://www.instagram.com/maverick_agency/"
+  };
+
+  let urlsServicios = [
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/Branding.png",
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/MarketingDigital.png",
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/ProduccionAudiovisual.png",
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/ProduccionGrafica.png"
+  ];
 
   // Check if the message contains text
   if (received_message.text) {
 
-    //API del Bot
-    data = await getResponseFromBotMarketeer(received_message.text);
-    respuestaBot = data[0]["respuesta"];
-    cadenaLimpia = limpiarCadena(respuestaBot);
-    console.log("---> Cadena limpia: " + cadenaLimpia);
-    response = {
-      "text": `${cadenaLimpia}`
+    console.log("---> Mensaje de texto en el handleMessage");
+    console.log(received_message.text);
+
+    
+
+    switch (received_message.text) {
+      case "Hola":
+        console.log("---> Case Hola")
+        btns.push(getBtnPostback("Contactos", "Contactos"));
+        btns.push(getBtnPostback("Servicios", "Servicios"));
+        btns.push(getBtnPostback("Más info", "Bienvenido"));
+        image_url = "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/MaverickSala.png";
+        response = getTemplateBtnsWhitImg(default_action, btns, "Maverick","Estrategas especializados en desarrollar experiencias de marca",image_url);
+      break;
+
+      case "❌":     
+        console.log("---> Case Finalizar");
+        btns.push( getBtnQuickReplies("text","👍🏻","👍🏻"));
+        // btns.push( getBtnQuickReplies("text","2/3","leve"));
+        btns.push( getBtnQuickReplies("text","👎🏻","👎🏻"));
+        cadenaLimpia = "Hola, me gustaría que me dieras el FeedBack de la interaccion con Mavermate Adriana";
+        response = getTemplateQuickReplies(cadenaLimpia, btns);
+      break;
+
+      case "👍🏻":
+        response = {
+          "text" : "¡Gracias por el FeedBack!\n\nQue bueno que cumplí mi objetivo."
+        }
+      break;
+
+      case "👎🏻'":
+        response = {
+          "text" : "¡Gracias por el FeedBack!\n\nLamento no cumplir con mi objetivo."
+        }
+      break;
+
+      case "Preguntas / Dudas":
+        response = {
+          "text" : "Estas son algunas preguntas frecuentes.\n\n \
+                    ¿Que servicios tienen?\n\n \
+                    Ubicación de la empresa\n \
+                    Paquetes que ofrecen\n \
+                    Horarios de atención\n \
+                    Vacantes de trabajo\n\n \
+                    ...o también escriba su pregunta y trataré de darle mi mejor respuesta.\n \
+                  "
+        }
+      break;
+
+      case "¿Quienes somos?":
+        response = {
+          "text" : "¡Somos la agencia que construirá el nuevo rumbo de tu marca!\n \
+                    Compártenos la visión que tienes para tu negocio al correo:\n \
+                    hola@maverick.com.mx.\n \
+                  "
+        }
+      break;
+      
+      default:
+        //API del Bot
+        data = await getResponseFromBotMarketeer(received_message.text);
+        respuestaBot = data[0]["respuesta"];
+        cadenaLimpia = limpiarCadena(respuestaBot);
+        console.log("---> Cadena limpia: " + cadenaLimpia);
+        response = {
+          "text": `${cadenaLimpia}`
+        }
+      break;
     }
+
+
   } else if (received_message.attachments) {
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
@@ -100,42 +183,89 @@ async function handleMessage(sender_psid, received_message) {
   callSendAPI(sender_psid, response);
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 // Funcion para
 async function getResponseByPayload(payload) {
-  let data, respuestaBot, cadenaLimpia, btns = [];
+  let data, respuestaBot, cadenaLimpia, respuesta, image_url, btns = [];
+
+  //Boton para instagram
   let default_action = {
     type: "web_url",
-    url: "https://www.facebook.com/appwebhook/",
-    fallback_url: "https://www.facebook.com/"
+    url: "https://www.instagram.com/maverick_agency/",
+    fallback_url: "https://www.instagram.com/maverick_agency/"
   };
 
+  let urlsServicios = [
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/Branding.png",
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/MarketingDigital.png",
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/ProduccionAudiovisual.png",
+    "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/ProduccionGrafica.png"
+  ];
+  console.log("---> Payload del postback");
+  console.log(payload);
   switch (payload) {
     case "Empezar":
+      console.log("---> Case Empezar")
+      btns.push(getBtnPostback("Contactos", "Contactos"));
+      btns.push(getBtnPostback("Servicios", "Servicios"));
+      btns.push(getBtnPostback("Más info", "Bienvenido"));
+      image_url = "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/MaverickSala.png";
+      respuesta = getTemplateBtnsWhitImg(default_action, btns, "Maverick","Estrategas especializados en desarrollar experiencias de marca",image_url);
+    break;
+
+    case "Contactos":
+      console.log("---> Case Contacto");
+      //data = await getResponseFromBotMarketeer("Hola");
+      btns.push(getBtnURL("https://www.maverick.com.mx", "Sitio web"));
+      btns.push(getBtnURL("https://www.instagram.com/maverick_agency/", "Instagram"));
+      btns.push(getBtnPhone("Llamar a Maverick", 52, 5587166297));
+      image_url = "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/MaverickAgency.png";
+      respuesta = getTemplateBtnsWhitImg(default_action, btns, "Contactos Maverick","¡Ponte en contacto y conocenos!",image_url);
+    break;
+
+    case "Servicios":
+      console.log("---> Case Servicios");
+      btns.push(getBtnURL("https://www.maverick.com.mx/#servicios", "Marketing Experiencial"));
+      btns.push(getBtnURL("https://www.maverick.com.mx/#servicios", "Producción Audiovisual"));
+      btns.push(getBtnURL("https://www.maverick.com.mx/#servicios", "Producción Gráfica"));
+      // let i = getRandomInt(0, urlsServicios.length );
+      // image_url = urlsServicios[0];
+      image_url = "https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/MarketingDigital.png";
+      respuesta = getTemplateBtnsWhitImg(default_action, btns, "Servicios Maverick","¡Conoce nuestros servicios!",image_url);
+    break;
+
+    case "Bienvenido":
+      console.log("---> Case Hola");
+      btns.push(getBtnQuickReplies("text","¿Quienes somos?","¿Quienes somos?"));
+      btns.push(getBtnQuickReplies("text","Preguntas / Dudas","Preguntas / Dudas"));
+      btns.push(getBtnQuickReplies("text","❌","❌"));
       data = await getResponseFromBotMarketeer("Hola");
-      break;
+      respuestaBot = data[0]["respuesta"];
+      cadenaLimpia = limpiarCadena(respuestaBot);
+      respuesta = getTemplateQuickReplies(cadenaLimpia, btns);
+    break;
 
     default:
       data = await getResponseFromBotMarketeer(payload);
-      break;
+      respuestaBot = data[0]["respuesta"];
+      cadenaLimpia = limpiarCadena(respuestaBot);
+      respuesta = {
+        "text" : cadenaLimpia
+      }
+    break;
   }
 
-  respuestaBot = data[0]["respuesta"];
-  cadenaLimpia = limpiarCadena(respuestaBot);
-
-  btns.push(getBtnURL("https://www.togasoliciones.com", "TOGA"));
-  btns.push(getBtnPhone("Llamar a TOGA", 52, 5514505050));
-  btns.push(getBtnPostback("Servicios", "Servicios"));
-
-  let respuesta = getTemplateBtnsWhitImg(default_action, btns, "Sitio web TOGA", cadenaLimpia);
-
-  console.log("---> Botones:");
-  console.log(btns);
+  // console.log("---> Botones:");
+  // console.log(btns);
 
   console.log("---> JSON del template:");
   console.log(respuesta);
 
-  console.log("---> JSON de los elementos del payload en el template:");
-  console.log(respuesta.attachment.payload.elements);
+  // console.log("---> JSON de los elementos del payload en el template:");
+  // console.log(respuesta.attachment.payload.elements);
 
   return respuesta;
 }

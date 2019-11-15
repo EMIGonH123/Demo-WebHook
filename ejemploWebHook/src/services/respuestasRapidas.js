@@ -1,13 +1,13 @@
 function getBtnQuickReplies(type, titulo, payload) {
     if (type == "text") {
         return {
-            "content_type": `${type}`,
-            "title": `${titulo}`,
-            "payload": `${payload}`
+            "content_type": type,
+            "title": titulo,
+            "payload": payload
         }
     } else {
         return {
-            "content_type": `${type}`
+            "content_type": type
         }
     }
 }

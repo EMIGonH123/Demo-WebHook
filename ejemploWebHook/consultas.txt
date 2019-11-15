@@ -14,25 +14,25 @@ curl -X POST -H "Content-Type: application/json" -d '{
         "template_type":"generic",
         "elements":[
            {
-            "title":"itio web",
-            "image_url":"https://webhook-demo-bot1.herokuapp.com/personas/Mavermate.jpg",
-            "subtitle":"",
+            "title":"Sitio web",
+            "image_url":"https://webhook-demo-bot1.herokuapp.com/Maverick/Imgs/Logos/MaverickAgency.png",
+            "subtitle":"Empresa dedicada al marketing digital",
             "default_action": {
               "type": "web_url",
-              "url": "https://www.facebook.com/appwebhook/",
+              "url": "https://www.instagram.com/maverick_agency/",
+              "fallback_url": "https://www.instagram.com/maverick_agency/",
               "messenger_extensions": true,
-              "webview_height_ratio": "tall",
-              "fallback_url": "https://www.facebook.com/"
+              "webview_height_ratio": "tall"
             },
             "buttons":[
               {
                 "type":"web_url",
-                "url":"https://www.togasoluciones.com/",
-                "title":"TOGA"
+                "url":"https://www.maverick.com.mx",
+                "title":"Maverick."
               },{
                 "type":"postback",
-                "title":"Start Chatting",
-                "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                "title":"Servicios",
+                "payload":"Servicios"
               }              
             ]      
           }
@@ -187,7 +187,9 @@ curl -X POST -H "Content-Type: application/json" -d '{
     "https://www.togasoluciones.com/",
     "https://webhook-demo-bot1.herokuapp.com/",
     "https://graph.facebook.com/",
-    "https://www.facebook.com/appwebhook/"
+    "https://www.instagram.com",
+    "https://www.facebook.com/appwebhook/",
+    "https://www.maverick.com.mx"
    ]
 }' "https://graph.facebook.com/v5.0/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
@@ -200,7 +202,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "recipient":{
     "id":"2610041832368505"
   },
-  "messaging_type": "RESPONSE",
   "message":{
     "text": "Pick a color:",
     "quick_replies":[
@@ -232,7 +233,6 @@ curl -X POST -H "Content-Type: application/json" -d '{
       {
         "content_type":"user_phone_number",
         "payload":"Llamando",
-        "image_url":"http://example.com/img/green.png"
       },
       {
         "content_type":"user_phone_number",
@@ -515,7 +515,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 ***************************/
 ---> Configurar el postback del botón “Empezar”
 curl -X POST -H "Content-Type: application/json" -d '{
-  "get_started": {"payload": "Hola"}
+  "get_started": {"payload": "Empezar"}
 }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
 
@@ -528,7 +528,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "greeting": [
     {
       "locale":"default",
-      "text":"Hola {{user_first_name}} bienvenido a Maverick. Esta pagina esta encargada de arketing" 
+      "text":"Hola {{user_first_name}} bienvenido a Maverick. Desarrollamos estrategias de marketing digital, creando contenido de valor y potencializando marcas hasta lograr un alto mindshare en el consumidor." 
     }, {
       "locale":"en_US",
       "text":"Timeless apparel for the masses."
@@ -538,7 +538,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 ---> Actualizar info
 curl -X POST -H "Content-Type: application/json" -d '{
-  "get_started": {"payload": "Hola"}
+  "get_started": {"payload": "Empezar"}
 }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
 ---> Eliminar
@@ -551,11 +551,11 @@ curl -X DELETE -H "Content-Type: application/json" -d '{
 
 
 ---> Obtener algun recurso
-curl -X GET "https://graph.facebook.com/v2.6/me/messenger_profile?fields=[profile_picture_url]&access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+curl -X GET "https://graph.facebook.com/v5.0/me/messenger_profile?fields=greeting&access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
 curl -X GET -H "Content-Type: application/json" -d '{
   "fields": [
-    "name"
+    "get_started"
   ]
 }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
 
@@ -763,3 +763,41 @@ curl -X POST -H "Content-Type: application/json" -d '{
     }
   }
 }' "https://graph.facebook.com/v2.6/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT"
+
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "message":{
+    "text": "Pick a color:",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":":)",
+        "payload":"Excelente",
+      },{
+        "content_type":"text",
+        "title":"Adios",
+        "payload":"Adios",
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
+
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "recipient":{
+    "id":"2610041832368505"
+  },
+  "messaging_type": "RESPONSE",
+  "message":{
+    "text": "Salir del bot",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Salir"
+      }
+    ]
+  }
+}' "https://graph.facebook.com/v5.0/me/messages?access_token=EAAHeZAwIZASdgBAPwrw4kCJiF8ptZCNhxWZC5Tj8kie1VhcWps7nBdseFt2ktW2vZASd5s1qjFj9jAaKwvEQn7PcuqEqRcZCu5KsiRa33DkcOUscAtQJUgcyjumwQelfX7HoKeBCTZBS97jB7xPfPjiQAY7rFbpsy5edcBvpMPipQttZA7SeYhuT" 
