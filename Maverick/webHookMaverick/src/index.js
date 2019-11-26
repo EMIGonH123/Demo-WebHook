@@ -36,10 +36,6 @@ const app = express();
 // heroku config:set SHOP_URL=https://webhook-maverick.herokuapp.com/ -a webhook-maverick
 // heroku config: set PERSON_ID = 1424935877661714 -a webhook-maverick
 
-// Configuraciones para una APP en facebook
-// URL de las Condiciones del servicio: https://marketeer.co/es/terminos-y-condiciones/
-// URL de la política de privacidad: https://marketeer.co/es/acuerdo-de-politica-de-privacidad-en-linea/
-
 //Importando las variables de entorno del Heroku
 const APP_ID = process.env.APP_ID;
 const APP_SECRET = process.env.APP_SECRET;
